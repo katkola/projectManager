@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios, { formToJSON } from 'axios';
 
-const ProjectForm= () => {
-    const [ message, setMessage ] = useState("Loading...")
+const ProjectForm= (props) => {
+    const [projects, setProjects] = useState([]);
     const [title, setTitle] =  useState(""); 
     const [price, setPrice] =  useState(""); 
     const [description, setDescrip] =  useState(""); 
@@ -18,6 +18,7 @@ const ProjectForm= () => {
             .then(res=>{
                 console.log(res);
                 console.log(res.data);
+                setProjects([...projects, res.data]);
             })
             .catch(err=>console.log(err))
     }
