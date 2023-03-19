@@ -5,5 +5,5 @@ module.exports = (app) => {
     app.get('/api/projects', ProjectController.getAllProjects); 
     app.get('/api/projects/:id', ProjectController.getProject);
     app.put('/api/projects/:id', ProjectController.updateProject);
-    app.delete('/api/projects/:id', ProjectsController.deleteProject);
+    app.delete('/api/projects/:id', ProjectController.deleteProject);
 }

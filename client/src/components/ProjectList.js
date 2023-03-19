@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 const ProjectList = (props) => {
     const {removeFromDom, projects, setProjects} = props;
+
     const deleteProject = (projectId) =>{
         axios.delete('http://localhost:8000/api/projects/' + projectId)
         .then(res => {
@@ -10,17 +11,6 @@ const ProjectList = (props) => {
         })
         .catch(err => console.log(err))
     }
-
-    useEffect(()=>{
-        axios.get("http://localhost:8000/api/projects")
-            .then((res)=>{
-                console.log(res.data);
-                setProjects(res.data);
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
-    },[] )
 
     return(
         <div>
