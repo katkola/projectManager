@@ -1,10 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-
 const ProjectList = (props) => {
-    const {projects, setProjects} = props;
-    
+    const {removeFromDom, projects, setProjects} = props;
+    const deleteProject = (projectId) =>{
+        axios.delete('http://localhost:8000/api/projects/' + projectId)
+        .then(res => {
+            removeFromDom(projectId)
+        })
+        .catch(err => console.log(err))
+    }
 
     useEffect(()=>{
         axios.get("http://localhost:8000/api/projects")
@@ -27,6 +32,10 @@ const ProjectList = (props) => {
                         <p>{project.description}</p>
 
                         <Link to={`/projects/${project._id}`}> {project.title}'s Page! </Link>
+                        <Link to={"/projects/edit"+ project._id}>Edit</Link>
+                        <button onClick={(e)=>{deleteProject(project._id)}}>
+                            Delete
+                        </button>
                     </div>)
                 })
             }

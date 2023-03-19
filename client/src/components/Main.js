@@ -5,6 +5,10 @@ import ProjectList from '../components/ProjectList';
 const Main = (props) => {
     
     const [projects, setProjects] = useState([]);
+
+    const removeFromDom = projectId => {
+        setProjects(projects.filter(project => project._id != projectId));
+    }
     
     return (
         <div>
