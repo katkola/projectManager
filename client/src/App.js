@@ -13,7 +13,7 @@ function App() {
             <Route element={<Detail/>} path="/projects/:id" />
             <Route element={<ProjectForm/>} path="/projects/new"/>
           <Route element={<Main />} path="/home" default />
-          <Route elemen={<Update/>} path="/projects/edit/:id"/>
+          <Route element={<Update/>} path="/projects/edit/:id"/>
         </Routes>
       </BrowserRouter>
     </div>

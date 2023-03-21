@@ -1,40 +1,42 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import ProjectForm from '../components/ProjectForm';
 import { useNavigate, useParams } from "react-router-dom";
+
 const Update = (props) => {
-    const { id } = useParams(); //this process is identical to the one we used with our Details.js component
-    const [title, setTitle] = useState();
-    const [price, setPrice] = useState();
-    const [description, setDescription] = useState();
+    const { id } = useParams();
+    const [loaded, setLoaded] = useState(false);
+    const [project, setProject] = useState({});
     const navigate = useNavigate();
-    // retrieve the current values for this Project so we can fill
-    // in the form with what is in the db currently
+
     useEffect(() => {
         axios.get('http://localhost:8000/api/projects/' + id)
             .then(res => {
-                setTitle(res.data.title);
-                setPrice(res.data.description);
-                setDescription(res.data.description);
+                console.log(project);
+                setProject(res.data);
+                setLoaded(true);
             })
             .catch(err => console.log(err))
     }, [])
-    const updateProject = (e) => {
-        e.preventDefault();
-        axios.put('http://localhost:8000/api/projects/' + id, {
-            title,    // this is shortcut syntax for title: title,
-            price,
-            description      // this is shortcut syntax for lastName: lastName
-        })
+
+    const updateProject = projectParms => {
+        axios.put('http://localhost:8000/api/projects/' + id, projectParms)
             .then(res => {
                 console.log(res);
-                navigate("/home"); // this will take us back to the Main.js
+                navigate("/home");
             })
             .catch(err => console.log(err))
     }
     return (
         <div>
             <h1>Update a Project</h1>
-            <form onSubmit={updateProject}>
+            {
+                loaded && <ProjectForm updatePage={updateProject} 
+                initialTitle={project.title} initialPrice={project.price} 
+                initialDescription={project.description} />
+            
+            }
+            {/* <form onSubmit={updateProject}>
                 <p>
                     <label>Title</label><br />
                     <input type="text" 
@@ -57,7 +59,7 @@ const Update = (props) => {
                     onChange={(e) => { setDescription(e.target.value) }} />
                 </p>
                 <input type="submit" />
-            </form>
+            </form> */}
         </div>
     )
 }

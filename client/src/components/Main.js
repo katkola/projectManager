@@ -31,7 +31,7 @@ const Main = (props) => {
     
     return (
         <div>
-            <ProjectForm projects={projects} setProjects={setProjects} updatePage={updatePage}/>
+            <ProjectForm projects={projects} initialTitle="" initialPrice={0} initialDescription="" updatePage={updatePage}/>
             <ProjectList projects={projects} setProjects={setProjects} removeFromDom={removeFromDom}/>
             
         </div>
